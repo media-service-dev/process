@@ -1,0 +1,43 @@
+{
+  "name": "@mscs/process",
+  "version": "0.1.0-DEV",
+  "description": "Run processes easier",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "license": "MIT",
+  "scripts": {
+    "build": "webpack --config webpack.config.js --mode=production",
+    "build:development": "webpack --config webpack.config.js --mode=development",
+    "build:watch": "webpack --config webpack.config.js --watch --mode=development",
+    "lint": "eslint ./src/**/* ./__tests__/**/*",
+    "test": "jest",
+    "test:watch": "jest --watchAll",
+    "docs": "typedoc --listInvalidSymbolLinks src/"
+  },
+  "files": [
+    "dist/",
+    "docs/",
+    "yarn.lock",
+    "README.md",
+    "LICENSE"
+  ],
+  "devDependencies": {
+    "@mscs/eslint-config": "media-service-dev/eslint-config#master",
+    "@types/jest": "^25.1.4",
+    "@types/node": "^13.7.6",
+    "@typescript-eslint/eslint-plugin": "^2.24.0",
+    "clean-webpack-plugin": "^3.0.0",
+    "eslint": "^6.8.0",
+    "eslint-plugin-simple-import-sort": "^5.0.2",
+    "jest": "^25.1.0",
+    "jest-each": "^25.1.0",
+    "stream-mock": "^2.0.5",
+    "ts-jest": "^25.2.1",
+    "ts-loader": "^6.2.1",
+    "typedoc": "^0.16.10",
+    "typescript": "^3.8.2",
+    "webpack": "^4.41.6",
+    "webpack-cli": "^3.3.11",
+    "webpack-node-externals": "^1.7.2"
+  }
+}
