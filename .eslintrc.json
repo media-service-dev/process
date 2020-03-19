@@ -1,0 +1,5 @@
+{
+  "extends": [
+    "@mscs/eslint-config/node"
+  ]
+}
