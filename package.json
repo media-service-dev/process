@@ -2,6 +2,10 @@
   "name": "@mscs/process",
   "version": "0.1.0-DEV",
   "description": "Run processes easier",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:media-service-dev/process.git"
+  },
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "license": "MIT",
