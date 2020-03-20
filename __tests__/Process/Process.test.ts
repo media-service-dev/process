@@ -235,4 +235,21 @@ describe("Process", () => {
 
     });
 
+    describe("input", () => {
+
+        it("should pipe input", async () => {
+            // Arrange
+            const process = new Process(["node", "-e", "process.stdin.pipe(process.stdout);"], {
+                input: "foo",
+            });
+
+            // Act
+            const actual = await process.mustRun();
+
+            // Assert
+            expect(actual.getOutput()).toBe("foo");
+        });
+
+    });
+
 });

@@ -97,17 +97,22 @@ export class Process {
         const shell = await this.getShell();
         const options: childProcess.SpawnOptions = {
             cwd: this.options.directory,
-            stdio: [this.options.input ? new InputStream(this.options.input) : null, "pipe", "pipe"],
+            stdio: "pipe",
             shell,
         };
 
         this.process = childProcess.spawn(this.command, this.args, options);
-
         this.status = ProcessStatus.STARTED;
+
+        if (this.options.input && this.process.stdin) {
+            const stream = new InputStream(this.options.input);
+            stream.pipe(this.process.stdin);
+        }
 
         if (this.process.stdout) {
             this.process.stdout.pipe(this.stdout);
         }
+
         if (this.process.stderr) {
             this.process.stderr.pipe(this.stderr);
         }
