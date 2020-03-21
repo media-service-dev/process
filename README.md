@@ -1,8 +1,6 @@
 
 # @mscs/process
 
-**Version:** 0.1.0-DEV
-
 This is a library to handle child processes in typescript for node.
 
 ## Installation
