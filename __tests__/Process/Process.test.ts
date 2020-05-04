@@ -252,4 +252,20 @@ describe("Process", () => {
 
     });
 
+    describe("getExitCode", () => {
+
+        it("should not throw if exit code is zero", async () => {
+            // Arrange
+            const process = new Process(["node", "-e", "process.exit(0);"]);
+            await process.run();
+
+            // Act
+            const actual = process.getExitCode();
+
+            // Assert
+            expect(actual).toBe(0);
+        });
+
+    });
+
 });

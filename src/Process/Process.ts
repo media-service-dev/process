@@ -241,7 +241,7 @@ export class Process {
      * @returns {number}
      */
     public getExitCode(): number {
-        if (!this.exitCode) {
+        if (null === this.exitCode) {
             throw new RuntimeException("Missing exit code.");
         }
 
