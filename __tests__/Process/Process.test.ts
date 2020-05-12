@@ -11,6 +11,8 @@ import { LogicException } from "../../src/Exception/LogicException";
 import { ProcessFailedException } from "../../src/Exception/ProcessFailedException";
 import { RuntimeException } from "../../src/Exception/RuntimeException";
 import { Process } from "../../src/Process/Process";
+import * as path from "path";
+import { OutputStream } from "../../src";
 
 describe("Process", () => {
 
@@ -248,6 +250,52 @@ describe("Process", () => {
 
             // Assert
             expect(actual.getOutput()).toBe("foo");
+        });
+
+    });
+
+    describe("getStdout", () => {
+
+        it("should pipe continuously", async () => {
+            // Arrange
+            const runningProcess = new Process(["node", path.join(__dirname, "test-process.js")]);
+            await runningProcess.start();
+            const output = new OutputStream();
+            const stdout = runningProcess.getStdout();
+
+            interface Message {
+                timestamp: number;
+
+                output: {
+                    index: number;
+                    timestamp: number;
+                }
+            }
+
+            const messages: Message[] = [];
+
+            output.on("data", (chunk: Buffer) => {
+                const now = new Date();
+                const timestamp = now.getTime();
+
+                messages.push({
+                    timestamp,
+                    output: JSON.parse(chunk.toString()),
+                });
+            });
+
+            // Act
+            stdout.pipe(output);
+            await runningProcess.wait();
+
+            // Assert
+            expect(messages.length).toBe(3);
+
+            for (const message of messages) {
+                const difference = message.output.timestamp - message.timestamp;
+                expect(difference).toBeLessThan(20);
+                expect(difference).toBeGreaterThan(-20);
+            }
         });
 
     });

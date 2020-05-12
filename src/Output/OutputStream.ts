@@ -7,22 +7,22 @@
  * File that was distributed with this source code.
  */
 
-import { Writable, WritableOptions } from "stream";
+import { Transform, TransformOptions } from "stream";
 
-export class OutputStream extends Writable {
+export class OutputStream extends Transform {
 
     protected contents = Buffer.from("");
 
     protected closed: boolean = false;
 
-    public constructor(options?: WritableOptions) {
+    public constructor(options?: TransformOptions) {
         super(options);
     }
 
-    public _write(chunk: Buffer, encoding: string, callback: () => void) {
+    public _transform(chunk: Buffer, encoding: string, callback: () => void) {
         if (!this.closed) {
             this.contents = Buffer.concat([this.contents, chunk]);
-            this.emit("data", chunk);
+            this.push(chunk);
         }
         callback();
     }

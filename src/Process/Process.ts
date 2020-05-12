@@ -287,6 +287,14 @@ export class Process {
         this.stderr.close();
     }
 
+    public getStdout(): OutputStream {
+        return this.stdout;
+    }
+
+    public getStderr(): OutputStream {
+        return this.stderr;
+    }
+
     private async getShell(): Promise<string> {
         const command = "win32" === os.platform() ? "where" : "which";
 
