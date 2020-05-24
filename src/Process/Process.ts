@@ -283,8 +283,6 @@ export class Process {
     public stop(signal: NodeJS.Signals = "SIGTERM"): void {
         this.status = ProcessStatus.TERMINATED;
         this.process.kill(signal);
-        this.stdout.close();
-        this.stderr.close();
     }
 
     public getStdout(): OutputStream {

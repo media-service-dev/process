@@ -7,12 +7,12 @@
  * File that was distributed with this source code.
  */
 
+import * as path from "path";
 import { LogicException } from "../../src/Exception/LogicException";
 import { ProcessFailedException } from "../../src/Exception/ProcessFailedException";
 import { RuntimeException } from "../../src/Exception/RuntimeException";
+import { OutputStream } from "../../src/Output/OutputStream";
 import { Process } from "../../src/Process/Process";
-import * as path from "path";
-import { OutputStream } from "../../src";
 
 describe("Process", () => {
 
@@ -296,6 +296,35 @@ describe("Process", () => {
                 expect(difference).toBeLessThan(20);
                 expect(difference).toBeGreaterThan(-20);
             }
+        });
+
+    });
+
+    describe("stop", () => {
+
+        it("should kill the underlaying process", async () => {
+            // Arrange
+            const runningProcess = new Process(["node", path.join(__dirname, "test-process.js")]);
+            await runningProcess.start();
+            const output = new OutputStream();
+            const stdout = runningProcess.getStdout();
+
+            const messages: string[] = [];
+
+            output.on("data", (chunk: Buffer) => {
+                messages.push(chunk.toString());
+            });
+
+            // Act
+            setTimeout(() => {
+                runningProcess.stop();
+            }, 2500);
+
+            // Assert
+            stdout.pipe(output);
+            await runningProcess.wait();
+
+            expect(messages.length).toBe(2);
         });
 
     });

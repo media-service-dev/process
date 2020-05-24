@@ -54,31 +54,4 @@ describe("OutputStream", () => {
 
     });
 
-    describe("close", () => {
-
-        it("should close the stream", async () => {
-            // Arrange
-            const output = new OutputStream();
-            const text = "foo bar baz lorem";
-            const input = new InputStream(text.repeat(3), { highWaterMark: text.length });
-
-            // Act
-            output.on("data", () => {
-                output.close();
-            });
-
-            input.pipe(output);
-
-            // Assert
-            await (new Promise((resolve) => {
-                output.on("finish", () => {
-                    expect(output.toString()).toEqual(text);
-                    expect(output.toBuffer().toString()).toEqual(text);
-                    resolve();
-                });
-            }));
-        });
-
-    });
-
 });

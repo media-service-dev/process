@@ -13,17 +13,13 @@ export class OutputStream extends Transform {
 
     protected contents = Buffer.from("");
 
-    protected closed: boolean = false;
-
     public constructor(options?: TransformOptions) {
         super(options);
     }
 
     public _transform(chunk: Buffer, encoding: string, callback: () => void) {
-        if (!this.closed) {
-            this.contents = Buffer.concat([this.contents, chunk]);
-            this.push(chunk);
-        }
+        this.contents = Buffer.concat([this.contents, chunk]);
+        this.push(chunk);
         callback();
     }
 
@@ -33,18 +29,6 @@ export class OutputStream extends Transform {
 
     public toString(): string {
         return this.contents.toString();
-    }
-
-    public isClosed(): boolean {
-        return this.closed;
-    }
-
-    public close(): this {
-        this.closed = true;
-        this.emit("close");
-        this.emit("finish");
-
-        return this;
     }
 
 }
