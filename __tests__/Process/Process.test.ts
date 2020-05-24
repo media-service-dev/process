@@ -293,8 +293,8 @@ describe("Process", () => {
 
             for (const message of messages) {
                 const difference = message.output.timestamp - message.timestamp;
-                expect(difference).toBeLessThan(20);
-                expect(difference).toBeGreaterThan(-20);
+                expect(difference).toBeLessThan(50);
+                expect(difference).toBeGreaterThan(-50);
             }
         });
 
