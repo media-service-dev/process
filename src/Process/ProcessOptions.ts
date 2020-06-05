@@ -18,4 +18,9 @@ export interface ProcessOptions {
      * The stdin for the process
      */
     input: string | null;
+
+    /**
+     * The environment for the process
+     */
+    environment: NodeJS.ProcessEnv | null;
 }

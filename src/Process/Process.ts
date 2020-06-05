@@ -46,6 +46,7 @@ export class Process {
         this.options = {
             directory: process.cwd(),
             input: null,
+            environment: null,
             ...options,
         };
 
@@ -100,6 +101,10 @@ export class Process {
             stdio: "pipe",
             shell,
         };
+
+        if (null !== this.options.environment) {
+            options.env = this.options.environment;
+        }
 
         this.process = childProcess.spawn(this.command, this.args, options);
         this.status = ProcessStatus.STARTED;

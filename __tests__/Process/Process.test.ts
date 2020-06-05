@@ -345,4 +345,34 @@ describe("Process", () => {
 
     });
 
+    describe("environment", () => {
+
+        test("APP_FOO should be unset", async () => {
+            // Arrange
+            const process = new Process(["node", "-e", "process.stdout.write(process.env.APP_FOO||'undefined');"]);
+
+            // Act
+            const actual = await process.mustRun();
+
+            // Assert
+            expect(actual.getOutput()).toBe("undefined");
+        });
+
+        it("should set environment vars", async () => {
+            // Arrange
+            const process = new Process(["node", "-e", "process.stdout.write(process.env.APP_FOO||'undefined');"], {
+                environment: {
+                    "APP_FOO": "bar",
+                },
+            });
+
+            // Act
+            const actual = await process.mustRun();
+
+            // Assert
+            expect(actual.getOutput()).toBe("bar");
+        });
+
+    });
+
 });
