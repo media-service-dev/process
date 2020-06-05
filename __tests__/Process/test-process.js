@@ -9,11 +9,11 @@ const limit = startIndex + times - 1;
 let index = startIndex;
 
 function next() {
-    const current = index++;
-
-    if (current - 1 === limit) {
+    if (current === limit) {
         return;
     }
+
+    const current = index++;
 
     setTimeout(function () {
         write(JSON.stringify({ index: current, timestamp: (new Date()).getTime() }));
