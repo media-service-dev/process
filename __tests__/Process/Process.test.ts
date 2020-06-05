@@ -347,7 +347,7 @@ describe("Process", () => {
 
     describe("environment", () => {
 
-        test("APP_END should be unset", async () => {
+        test("APP_FOO should be unset", async () => {
             // Arrange
             const process = new Process(["node", "-e", "process.stdout.write(process.env.APP_FOO||'undefined');"]);
 
