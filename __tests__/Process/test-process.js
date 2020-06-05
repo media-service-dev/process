@@ -2,23 +2,22 @@ function write(text) {
     process.stdout.write(text);
 }
 
-const startIndex = 1000;
 const times = 3;
-const limit = startIndex + times - 1;
-
-let index = startIndex;
+const interval = 1000;
+let index = 1;
 
 function next() {
-    if (current === limit) {
+    if (index === times + 1) {
         return;
     }
 
     const current = index++;
 
     setTimeout(function () {
-        write(JSON.stringify({ index: current, timestamp: (new Date()).getTime() }));
+        const timestamp = (new Date()).getTime();
+        write(JSON.stringify({ index: current, timestamp }));
         next();
-    }, current);
+    }, interval);
 }
 
 next();

@@ -317,7 +317,7 @@ describe("Process", () => {
 
             // Act
             setTimeout(() => {
-                runningProcess.stop();
+                runningProcess.stop("SIGINT");
             }, 2500);
 
             // Assert

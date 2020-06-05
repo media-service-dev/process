@@ -139,6 +139,9 @@ export class Process {
                 } else {
                     this.exitCode = null !== signal ? 1 : 0;
                 }
+
+                this.status = ProcessStatus.TERMINATED;
+                resolve(this.exitCode);
             });
 
             this.process.on("close", (code: number | null) => {
@@ -280,7 +283,7 @@ export class Process {
      *
      * @param {string} signal
      */
-    public stop(signal: NodeJS.Signals = "SIGTERM"): void {
+    public stop(signal: NodeJS.Signals = "SIGINT"): void {
         this.status = ProcessStatus.TERMINATED;
         this.process.kill(signal);
     }
