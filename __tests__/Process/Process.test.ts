@@ -360,9 +360,9 @@ describe("Process", () => {
 
         it("should set environment vars", async () => {
             // Arrange
-            const process = new Process(["node", "-e", "process.stdout.write(process.env.APP_FOO);"], {
+            const process = new Process(["node", "-e", "process.stdout.write(process.env.APP_FOO||'undefined');"], {
                 environment: {
-                    "app_foo": "bar",
+                    "APP_FOO": "bar",
                 },
             });
 
