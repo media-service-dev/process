@@ -302,7 +302,7 @@ describe("Process", () => {
 
     describe("stop", () => {
 
-        it("should kill the underlaying process", async () => {
+        it("should kill the underlying process", async () => {
             // Arrange
             const runningProcess = new Process(["node", path.join(__dirname, "test-process.js")]);
             await runningProcess.start();
