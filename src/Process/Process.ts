@@ -47,6 +47,7 @@ export class Process {
             directory: process.cwd(),
             input: null,
             environment: null,
+            detached: false,
             ...options,
         };
 
@@ -98,7 +99,8 @@ export class Process {
         const shell = await this.getShell();
         const options: childProcess.SpawnOptions = {
             cwd: this.options.directory,
-            stdio: "pipe",
+            detached: this.options.detached,
+            stdio: this.options.detached ? "ignore" : "pipe",
             shell,
         };
 
@@ -108,6 +110,10 @@ export class Process {
 
         this.process = childProcess.spawn(this.command, this.args, options);
         this.status = ProcessStatus.STARTED;
+
+        if (this.options.detached) {
+            this.process.unref();
+        }
 
         if (this.options.input && this.process.stdin) {
             const stream = new InputStream(this.options.input);
