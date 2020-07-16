@@ -23,4 +23,9 @@ export interface ProcessOptions {
      * The environment for the process
      */
     environment: NodeJS.ProcessEnv | null;
+
+    /**
+     * Run the process in background
+     */
+    detached: boolean;
 }
