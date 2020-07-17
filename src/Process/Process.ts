@@ -113,6 +113,7 @@ export class Process {
 
         if (this.options.detached) {
             this.process.unref();
+            this.status = ProcessStatus.DETACHED;
         }
 
         if (this.options.input && this.process.stdin) {
@@ -137,6 +138,13 @@ export class Process {
     public async wait(): Promise<number> {
         if (!this.isStarted()) {
             throw new LogicException("Process must be started before calling \"wait\".");
+        }
+
+        if (this.isDetached()) {
+            // Lets assume it would be successfully.
+            this.exitCode = 0;
+
+            return 0;
         }
 
         return new Promise((resolve, reject) => {
@@ -269,6 +277,15 @@ export class Process {
      */
     public isTerminated(): boolean {
         return ProcessStatus.TERMINATED === this.status;
+    }
+
+    /**
+     * Checks if the process is detached.
+     *
+     * @returns {boolean}
+     */
+    public isDetached(): boolean {
+        return ProcessStatus.DETACHED === this.status;
     }
 
     /**
