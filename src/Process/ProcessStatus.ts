@@ -11,4 +11,5 @@ export enum ProcessStatus {
     READY,
     STARTED,
     TERMINATED,
+    DETACHED,
 }
