@@ -64,7 +64,7 @@ export class Process {
     }
 
     /**
-     * Get the process arguments
+     * Get the process arguments.
      *
      * @returns {string[]}
      */
@@ -73,7 +73,7 @@ export class Process {
     }
 
     /**
-     * Format the command with the arguments as string
+     * Format the command with the arguments as string.
      *
      * @returns {string}
      */
@@ -217,7 +217,7 @@ export class Process {
     }
 
     /**
-     * Returns the output from the process stdout
+     * Returns the output from the process stdout.
      *
      * @param {boolean} normalized should the new lines be normalized to `\n`
      * @returns {string}
@@ -233,7 +233,7 @@ export class Process {
     }
 
     /**
-     * Returns the output from the process stderr
+     * Returns the output from the process stderr.
      *
      * @param {boolean} normalized should the new lines be normalized to `\n`
      * @returns {string}
@@ -298,7 +298,7 @@ export class Process {
     }
 
     /**
-     * The working directory
+     * The working directory.
      *
      * @returns {string}
      */
@@ -307,7 +307,7 @@ export class Process {
     }
 
     /**
-     * Kill the process
+     * Kill the process.
      *
      * @param {string} signal
      */
