@@ -20,6 +20,8 @@ import { ProcessStatus } from "./ProcessStatus";
 
 export class Process {
 
+    protected static shell: string;
+
     protected command: string;
 
     protected args: string[];
@@ -52,6 +54,25 @@ export class Process {
         };
 
         this.resetProcessData();
+    }
+
+    private static async getShell(): Promise<string> {
+        if (!this.shell) {
+            const command = "win32" === os.platform() ? "where" : "which";
+
+            this.shell = await new Promise((resolve, reject) => {
+                childProcess.exec(command + " bash", (error, stdout) => {
+                    if (null !== error) {
+                        reject(error);
+                    } else {
+                        const [shellPath] = stdout.replace(/\r?\n/g, "\n").split("\n").filter(item => item.length);
+                        resolve(shellPath);
+                    }
+                });
+            });
+        }
+
+        return this.shell;
     }
 
     /**
@@ -96,7 +117,7 @@ export class Process {
 
         this.resetProcessData();
 
-        const shell = await this.getShell();
+        const shell = await Process.getShell();
         const options: childProcess.SpawnOptions = {
             cwd: this.options.directory,
             detached: this.options.detached,
@@ -322,21 +343,6 @@ export class Process {
 
     public getStderr(): OutputStream {
         return this.stderr;
-    }
-
-    private async getShell(): Promise<string> {
-        const command = "win32" === os.platform() ? "where" : "which";
-
-        return new Promise((resolve, reject) => {
-            childProcess.exec(command + " bash", (error, stdout) => {
-                if (null !== error) {
-                    reject(error);
-                } else {
-                    const [shellPath] = stdout.replace(/\r?\n/g, "\n").split("\n").filter(item => item.length);
-                    resolve(shellPath);
-                }
-            });
-        });
     }
 
     private escapeShellArguments(args: string[]) {
