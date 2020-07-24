@@ -10,22 +10,22 @@
 export interface ProcessOptions {
 
     /**
-     * The working directory
+     * The working directory.
      */
     directory: string;
 
     /**
-     * The stdin for the process
+     * The stdin for the process.
      */
     input: string | null;
 
     /**
-     * The environment for the process
+     * The environment for the process.
      */
     environment: NodeJS.ProcessEnv | null;
 
     /**
-     * Run the process in background
+     * Run the process in background.
      */
     detached: boolean;
 }
