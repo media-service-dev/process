@@ -8,14 +8,12 @@
  */
 
 const path = require("path");
-const nodeExternals = require("webpack-node-externals");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
 
 module.exports = {
     target: "node",
     entry: "./src/index.ts",
     devtool: "source-map",
-    externals: [nodeExternals()],
     module: {
         rules: [
             {
