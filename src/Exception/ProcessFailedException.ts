@@ -8,6 +8,7 @@
  */
 
 import * as util from "util";
+
 import { Process } from "../Process/Process";
 import { ArgumentException } from "./ArgumentException";
 import { RuntimeException } from "./RuntimeException";

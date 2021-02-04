@@ -27,7 +27,8 @@ describe("OutputStream", () => {
                 output.on("finish", () => {
                     expect(output.toString()).toEqual("foo");
                     expect(output.toBuffer().toString()).toEqual("foo");
-                    resolve();
+
+                    resolve(null);
                 });
             }));
         });
@@ -47,7 +48,8 @@ describe("OutputStream", () => {
                 output.on("finish", () => {
                     expect(output.toString()).toEqual("foobar");
                     expect(output.toBuffer().toString()).toEqual("foobar");
-                    resolve();
+
+                    resolve(null);
                 });
             }));
         });

@@ -8,6 +8,7 @@
  */
 
 import * as path from "path";
+
 import { LogicException } from "../../src/Exception/LogicException";
 import { ProcessFailedException } from "../../src/Exception/ProcessFailedException";
 import { RuntimeException } from "../../src/Exception/RuntimeException";
@@ -259,6 +260,7 @@ describe("Process", () => {
         it("should pipe continuously", async () => {
             // Arrange
             const runningProcess = new Process(["node", path.join(__dirname, "test-process.js")]);
+
             await runningProcess.start();
             const output = new OutputStream();
             const stdout = runningProcess.getStdout();
@@ -293,6 +295,7 @@ describe("Process", () => {
 
             for (const message of messages) {
                 const difference = message.output.timestamp - message.timestamp;
+
                 expect(difference).toBeLessThan(50);
                 expect(difference).toBeGreaterThan(-50);
             }
@@ -305,6 +308,7 @@ describe("Process", () => {
         it("should kill the underlying process", async () => {
             // Arrange
             const runningProcess = new Process(["node", path.join(__dirname, "test-process.js")]);
+
             await runningProcess.start();
             const output = new OutputStream();
             const stdout = runningProcess.getStdout();
@@ -334,6 +338,7 @@ describe("Process", () => {
         it("should not throw if exit code is zero", async () => {
             // Arrange
             const process = new Process(["node", "-e", "process.exit(0);"]);
+
             await process.run();
 
             // Act

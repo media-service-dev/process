@@ -15,6 +15,7 @@ function next() {
 
     setTimeout(function () {
         const timestamp = (new Date()).getTime();
+
         write(JSON.stringify({ index: current, timestamp }));
         next();
     }, interval);
