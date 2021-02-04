@@ -1,7 +1,7 @@
 /*
  * This file is part of the @mscs/process package.
  *
- * Copyright (c) 2020 media-service consulting & solutions GmbH
+ * Copyright (c) 2021 media-service consulting & solutions GmbH
  *
  * For the full copyright and license information, please view the LICENSE
  * File that was distributed with this source code.
@@ -9,6 +9,7 @@
 
 import * as childProcess from "child_process";
 import * as os from "os";
+
 import { ArgumentException } from "../Exception/ArgumentException";
 import { LogicException } from "../Exception/LogicException";
 import { ProcessFailedException } from "../Exception/ProcessFailedException";
@@ -26,17 +27,17 @@ export class Process {
 
     protected args: string[];
 
-    protected exitCode: number | null;
+    protected exitCode!: number | null;
 
     protected options: ProcessOptions;
 
-    protected stdout: OutputStream;
+    protected stdout!: OutputStream;
 
-    protected stderr: OutputStream;
+    protected stderr!: OutputStream;
 
     protected status: ProcessStatus = ProcessStatus.READY;
 
-    protected process: childProcess.ChildProcess;
+    protected process!: childProcess.ChildProcess;
 
     public constructor(command: string[], options: Partial<ProcessOptions> = {}) {
         if (command.length === 0) {
@@ -66,6 +67,7 @@ export class Process {
                         reject(error);
                     } else {
                         const [shellPath] = stdout.replace(/\r?\n/g, "\n").split("\n").filter(item => item.length);
+
                         resolve(shellPath);
                     }
                 });
@@ -139,6 +141,7 @@ export class Process {
 
         if (this.options.input && this.process.stdin) {
             const stream = new InputStream(this.options.input);
+
             stream.pipe(this.process.stdin);
         }
 
