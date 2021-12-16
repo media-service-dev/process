@@ -328,7 +328,7 @@ describe("Process", () => {
             stdout.pipe(output);
             await runningProcess.wait();
 
-            expect(messages.length).toBe(2);
+            expect(messages.length).toBe(1);
         });
 
     });
