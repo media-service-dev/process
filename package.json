@@ -1,6 +1,6 @@
 {
   "name": "@mscs/process",
-  "version": "0.4.2",
+  "version": "0.4.3-DEV",
   "description": "Run processes easier",
   "repository": {
     "type": "git",
