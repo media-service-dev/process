@@ -233,7 +233,7 @@ describe("Process", () => {
 
             // Assert
             expect(process.isRunning()).toBeFalsy();
-            expect(process.getExitCode()).toBe(2);
+            expect(process.getExitCode()).toBe(1);
         });
 
     });
@@ -328,7 +328,7 @@ describe("Process", () => {
             stdout.pipe(output);
             await runningProcess.wait();
 
-            expect(messages.length).toBe(1);
+            expect(messages.length).toBe(2);
         });
 
     });
