@@ -233,7 +233,7 @@ describe("Process", () => {
 
             // Assert
             expect(process.isRunning()).toBeFalsy();
-            expect(process.getExitCode()).toBe(1);
+            expect(process.getExitCode()).toBe(2);
         });
 
     });
